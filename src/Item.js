@@ -33,12 +33,6 @@ function collect(connect, monitor) {
 }
     
 class Item extends Component {  
-    constructor(){
-        super()
-        this.rotate = Math.random() * 10 - 20
-        this.transform = "transform 1s ease 0s"   
-    }
-
     shouldComponentUpdate(nextProps, nextState) {
         // Check if select state of item has changed
         if(nextProps.selectedItems.includes(this.props.listId) !== this.props.selectedItems.includes(this.props.listId)){

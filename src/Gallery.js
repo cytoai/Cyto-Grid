@@ -76,7 +76,7 @@ class Gallery extends Component {
 
     render() {
         return (
-            <div type="container" onMouseDown={this.onmousedown} onMouseMove={this.onmousemove} onMouseUp={this.onmouseup}>
+            <div className="container" onMouseDown={this.onmousedown} onMouseMove={this.onmousemove} onMouseUp={this.onmouseup}>
                 <CustomDragLayer draggedItem={this.state.currentlyDraggedItem}/>
                 <Selectionbox selectionboxCoordinates={this.state.selectionboxCoordinates} visibility={this.state.selectionboxVisibility} />
                 <Target/>
