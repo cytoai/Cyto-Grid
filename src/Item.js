@@ -4,10 +4,11 @@ import { getEmptyImage } from 'react-dnd-html5-backend'
 
 const itemSource = {
     beginDrag(props) {
+      const imgId = props.images[props.index].id
       // Set global dragged item to this item
-      props.ondrag(props.listId)
+      props.ondrag(imgId)
       return {
-        listId: props.listId,
+        imgId: imgId,
         selectedItems: props.selectedItems
       };
     },
@@ -17,11 +18,7 @@ const itemSource = {
         if (!monitor.didDrop()) {
           return;
         }
-        const item = monitor.getItem();
-        console.log(item)
     },
-    isDragging(props, monitor){
-    }
 };
   
 function collect(connect, monitor) {
@@ -35,7 +32,8 @@ function collect(connect, monitor) {
 class Item extends Component {  
     shouldComponentUpdate(nextProps, nextState) {
         // Check if select state of item has changed
-        if(nextProps.selectedItems.includes(this.props.listId) !== this.props.selectedItems.includes(this.props.listId)){
+        const imgId = String(this.props.images[this.props.index].id)
+        if(nextProps.selectedItems.includes(imgId) !== this.props.selectedItems.includes(imgId)){
             return true
         }
         // Otherwise dont update component
@@ -49,13 +47,15 @@ class Item extends Component {
     }
 
     render () {
-        const { listId, selectedItems, onmousedown, connectDragSource} = this.props
+        const { selectedItems, onmousedown, connectDragSource, containerStyle, images, index} = this.props
+        const imgId = String(images[index].id)
+        const imgSrc = images[index].src
         return connectDragSource(
-            <div key={"li" + listId} name={"selectableElement"}  type={"selectableElement"} listid={listId} onMouseDown={() => onmousedown(listId)} className={selectedItems.includes(listId) ? "selected" : "unselected"}>
-                <img key={"img" + listId} type={"selectableElement"} alt="foo" src="https://place-hold.it/256x256"/>
+            <div key={"li" + imgId} name={"selectableElement"}  type={"selectableElement"} imgid={imgId} onMouseDown={() => onmousedown(imgId)} className={selectedItems.includes(imgId) ? "selected" : "unselected"}>
+                <img key={"img" + imgId} type={"selectableElement"} alt="foo" src={imgSrc} style={{objectPosition: "0 0", backgroundColor: "#F5F5F5", width: 0.8 * containerStyle.width, height: 0.8 * containerStyle.height, objectFit: "contain"}}/>
             </div>
         )
     }
 }
 
-export default DragSource("Item", itemSource, collect)(Item)
+export default DragSource("SelectedItems", itemSource, collect)(Item)

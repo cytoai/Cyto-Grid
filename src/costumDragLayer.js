@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { DragLayer } from 'react-dnd';
+import "./costumDragLayer.css"
+
 
 const layerStyles = {
   position: 'fixed',
@@ -43,14 +45,13 @@ class CustomDragLayer extends React.Component {
     for(let i = 0; i < list.length; i = i + 1){
         const element =  list[i]
         const imgElement = list[i].firstChild
-        let img = <img src={imgElement.src} alt="foo"/>
+        let img = <img key={"draglayerImg" + i} src={imgElement.src} alt="foo"/>
         imgSources.push(img)
         if(element.listId === this.props.draggedItem){
             swapArrayElements(imgSources, 0, i)
         }
     }
-    console.log(imgSources)
-    return <div>{imgSources}</div>
+    return <div id="drag-layer">{imgSources} <span>{list.length}</span> </div>
   }
 
   render() {

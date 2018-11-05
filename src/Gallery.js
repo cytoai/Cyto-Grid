@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './Gallery.css';
 import Items from './Items.js'
-import Target from './Target.js'
 import Selectionbox from './Selectionbox.js'
 import HTML5Backend from 'react-dnd-html5-backend'
 import CustomDragLayer from './costumDragLayer'
@@ -22,8 +21,14 @@ class Gallery extends Component {
               y2: 0,
           },
           selectionboxVisibility: "hidden",
-          currentlyDraggedItem: null
+          currentlyDraggedItem: null,
+          shiftKeyPressed: false
       }
+    }
+
+    componentDidMount(){
+        document.addEventListener("keydown", this.keyEvent);
+        document.addEventListener("keyup", this.keyEvent);
     }
 
     onmousedown = (e) => {
@@ -60,27 +65,40 @@ class Gallery extends Component {
         this.setState({selectionboxVisibility: "hidden", collisions: []})
     }
 
-    selectItem = (listId) => {
+    selectItem = (imgId) => { 
         // Check if clicked on an already selected item
-        if(this.state.selected.includes(listId)){
+        if(this.state.selected.includes(imgId)){
             return
         }
-        // else select item
-        this.setState({selected: [listId]})
+        // Check if shiftkey is pressed
+        if(this.state.shiftKeyPressed){
+            let copySelected = [...this.state.selected]
+            copySelected.push(imgId)
+            this.setState({selected: copySelected})
+        }
+        else 
+        this.setState({selected: [imgId]})
     }
 
     setCrrentlyDraggedItem = (value) => {
-        // if item is dragged value = listId otherwise value = null
+        // if item is dragged value = imgId otherwise value = null
         this.setState({currentlyDraggedItem: value})
+    }
+    
+    keyEvent = (e) => {
+        this.setState({shiftKeyPressed: e.shiftKey})
     }
 
     render() {
+        const { images, imagesPerRow, asyncImgLoadingFunc } = this.props
         return (
             <div className="container" onMouseDown={this.onmousedown} onMouseMove={this.onmousemove} onMouseUp={this.onmouseup}>
                 <CustomDragLayer draggedItem={this.state.currentlyDraggedItem}/>
                 <Selectionbox selectionboxCoordinates={this.state.selectionboxCoordinates} visibility={this.state.selectionboxVisibility} />
-                <Target/>
                 <Items
+                    images={images}
+                    imagesPerRow={imagesPerRow}
+                    asyncImgLoadingFunc={asyncImgLoadingFunc}
                     selectItem={this.selectItem}
                     selectedItems={this.state.selected}
                     ondrag={this.setCrrentlyDraggedItem}

@@ -3,6 +3,7 @@ import { DropTarget } from 'react-dnd';
 
 const squareTarget = {
     drop(props, monitor) {
+        console.log(monitor.getItem())
     }
   };
 
@@ -17,7 +18,6 @@ class Target extends Component {
     constructor(){
         super()
         this.state = {
-            
         }
     }
     render () {
@@ -28,4 +28,4 @@ class Target extends Component {
     }
 }
 
-export default DropTarget("Item", squareTarget, collect)(Target)
+export default DropTarget("SelectedItems", squareTarget, collect)(Target)

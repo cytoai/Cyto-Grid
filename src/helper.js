@@ -6,9 +6,9 @@ export function collisionDetection(mousePosition){
     for (let i = 0; i < elements.length; i++) {
         const element = elements[i]
         const rectancle2 = element.getBoundingClientRect()
-        const listId = element.getAttribute('listId')
+        const imgid = element.getAttribute('imgid')
         const collisionDetected = collisionWithRectancle(rectancle1, rectancle2)
-        if(collisionDetected){ collisions.push(listId) }
+        if(collisionDetected){ collisions.push(imgid) }
     }
     return collisions
 }

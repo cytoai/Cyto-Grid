@@ -4,40 +4,59 @@ import { Grid,  AutoSizer } from 'react-virtualized';
 
 
 const Items = (props) => {
-    const onmousedown = (listId) => {
-        props.selectItem(listId)
+    const onmousedown = (imgId) => {
+        props.selectItem(imgId)
     }
 
-  const cellRenderer = function ({ columnIndex, key, rowIndex, style }) {
-    // Cell renderer for virtualized list
-    let newStyle ={...style, margin: "32px"}
-    return (
-      <div key={key} style={newStyle}>  
-          <Item
-              key={key} 
-              listId={key} 
-              selectedItems={props.selectedItems} 
-              onmousedown={onmousedown} 
-              ondrag={props.ondrag}
-          />
-      </div>
-    )  
-  }
+    let index = -1
+    const picturesPerRow = props.imagesPerRow
+    const length = props.images.length
+    const quotient = Math.floor(length/picturesPerRow);
+    const remainder = length % picturesPerRow;
+    let rowCount = quotient
+    if( remainder !== 0 ){
+        rowCount = rowCount + 1
+    }
+
+    const cellRenderer = function ({ columnIndex, key, rowIndex, style }) {
+        // Cell renderer for virtualized list
+        let newStyle ={...style}
+        index = index + 1
+        if(rowIndex === rowCount-1 && columnIndex > remainder-1){
+            if(remainder !== 0){
+                return
+            }
+        }
+        return (
+            <div key={key} style={newStyle}>  
+                <Item
+                    images={props.images}
+                    index={index}
+                    containerStyle={style}
+                    key={key} 
+                    selectedItems={props.selectedItems} 
+                    onmousedown={onmousedown} 
+                    ondrag={props.ondrag}
+                />
+            </div>
+        )  
+    }
        
   return (
         <AutoSizer>
-            {({ height, width }) => (
-                <Grid
+            {({ height, width }) => { 
+                let columnWidth = picturesPerRow > length ? width/length : width/picturesPerRow
+                return (<Grid
                     cellRenderer={cellRenderer}
-                    columnCount={5}
-                    columnWidth={300}
-                    height={height} /* This needs to be replaced dynamically in future */
-                    rowCount={10000}
+                    columnCount={picturesPerRow > length ? length : picturesPerRow}
+                    columnWidth={columnWidth}
+                    height={height} 
+                    rowCount={rowCount}
                     rowHeight={300}
-                    width={width} /* This needs to be replaced dynamically in future */
-                    style={{zIndex: 1, outline: "none"}}
-                />
-            )}
+                    width={width}
+                    style={{outline: "none"}}
+                />)
+            }}
         </AutoSizer>
   )
 }
