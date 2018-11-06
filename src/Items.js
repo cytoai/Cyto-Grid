@@ -57,7 +57,7 @@ const Items = (props) => {
                     columnWidth={columnWidth}
                     height={height} 
                     rowCount={rowCount}
-                    rowHeight={300}
+                    rowHeight={props.rowHeight}
                     width={calculatedWidth}
                     style={{outline: "none"}}
                 />)

@@ -29,17 +29,7 @@ function collect(connect, monitor) {
     };
 }
     
-class Item extends Component {  
-    shouldComponentUpdate(nextProps, nextState) {
-        // Check if select state of item has changed
-        const imgId = String(this.props.images[this.props.index].id)
-        if(nextProps.selectedItems.includes(imgId) !== this.props.selectedItems.includes(imgId)){
-            return true
-        }
-        // Otherwise dont update component
-        return false
-    }
-    
+class Item extends Component {     
     componentDidMount() {
         this.props.connectDragPreview(getEmptyImage(), {
             captureDraggingState: true,

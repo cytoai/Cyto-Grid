@@ -91,7 +91,7 @@ class Gallery extends Component {
     }
 
     render() {
-        const { images, imagesPerRow, asyncImgLoadingFunc, decreaseWidth} = this.props
+        const { images, imagesPerRow, asyncImgLoadingFunc, decreaseWidth, rowHeight} = this.props
         return (
             <div className="container" onMouseDown={this.onmousedown} onMouseMove={this.onmousemove} onMouseUp={this.onmouseup}>
                 <CustomDragLayer draggedItem={this.state.currentlyDraggedItem}/>
@@ -99,6 +99,7 @@ class Gallery extends Component {
                 <Items
                     images={images}
                     imagesPerRow={imagesPerRow}
+                    rowHeight={rowHeight}
                     asyncImgLoadingFunc={asyncImgLoadingFunc}
                     decreaseWidth={decreaseWidth}
                     selectItem={this.selectItem}
@@ -110,18 +111,18 @@ class Gallery extends Component {
     }
 }
 
-
 Gallery.propTypes = {
     images: PropTypes.array.isRequired,
     imagesPerRow: PropTypes.number,
     decreaseWidth: PropTypes.number,
     asyncImgLoadingFunc: PropTypes.func,
+    rowHeight: PropTypes.number
 };
 
 Gallery.defaultProps = {
     decreaseWidth: 0,
-    imagesPerRow: 10
+    imagesPerRow: 10,
+    rowHeight: 300
 };
-
 
 export default DragDropContext(HTML5Backend)(Gallery);
