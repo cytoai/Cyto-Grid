@@ -21,10 +21,6 @@ function getItemStyles(props) {
       display: 'none'
     };
   }
-  const x_Mouse = currentOffset.x - props.selectionboxCoordinates.x2
-  const y_Mouse = currentOffset.y - props.selectionboxCoordinates.y2
-
-
   const { x, y } = currentOffset;
   const transform = `translate(${x}px, ${y}px)`;
   return {
