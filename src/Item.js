@@ -76,9 +76,11 @@ class Item extends Component {
         const { selectedItems, onmousedown, connectDragSource, containerStyle, item} = this.props
         const imgId = String(item.id)
         const imgSrc = item.src
+        const imgSelected = selectedItems.includes(imgId)
         return connectDragSource(
-            <div key={"li" + imgId} name={"selectableElement"}  type={"selectableElement"} imgid={imgId} onMouseDown={() => onmousedown(imgId)} className={selectedItems.includes(imgId) ? "selected" : "unselected"}>
-                <img key={"img" + imgId} type={"selectableElement"} alt="foo" src={imgSrc} style={{objectPosition: "0 0", backgroundColor: "#F5F5F5", width: 0.8 * containerStyle.width, height: 0.8 * containerStyle.height, objectFit: "contain"}}/>
+            <div key={"li" + imgId} name={"selectableElement"}  type={"selectableElement"} imgid={imgId} onMouseDown={() => onmousedown(imgId)} className={imgSelected ? "selected" : "unselected"}>
+                <img key={"img" + imgId} type={"selectableElement"} alt="foo" src={imgSrc} style={{ border: imgSelected ?  "0.2rem solid rgb(41, 107, 210)" : "0.2rem solid white",
+                    objectPosition: "0 0", backgroundColor: "#F5F5F5", maxWidth: 0.9 * containerStyle.width, maxHeight: 0.9 * containerStyle.height, objectFit: "contain"}}/>
             </div>
         )
     }
