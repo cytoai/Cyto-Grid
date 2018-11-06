@@ -49,7 +49,8 @@ const Items = (props) => {
   return (
         <AutoSizer>
             {({ height, width }) => { 
-                let columnWidth = picturesPerRow > length ? width/length : width/picturesPerRow
+                const calculatedWidth = width - props.decreaseWidth
+                const columnWidth = picturesPerRow > length ? calculatedWidth/length : calculatedWidth/picturesPerRow
                 return (<Grid
                     cellRenderer={cellRenderer}
                     columnCount={picturesPerRow > length ? length : picturesPerRow}
@@ -57,7 +58,7 @@ const Items = (props) => {
                     height={height} 
                     rowCount={rowCount}
                     rowHeight={300}
-                    width={width}
+                    width={calculatedWidth}
                     style={{outline: "none"}}
                 />)
             }}

@@ -15,16 +15,13 @@ export function collisionDetection(mousePosition){
 
 export function reCalc(mousePosition) { 
     // Calculate rectangle positon
-    let doc = document.documentElement;
-    const scrollOffsetY = (window.pageYOffset || doc.scrollTop)  - (doc.clientTop || 0); 
-    const  scrollOffsetX = (window.pageXOffset || doc.scrollLeft) - (doc.clientLeft || 0);
     let x3 = Math.min(mousePosition.x1, mousePosition.x2); //Smaller X
     let x4 = Math.max(mousePosition.x1, mousePosition.x2); //Larger X
     let y3 = Math.min(mousePosition.y1, mousePosition.y2); //Smaller Y
     let y4 = Math.max(mousePosition.y1, mousePosition.y2); //Larger Y
     let left = x3 + 'px';
-    let top = y3 + scrollOffsetY + 'px';
-    let width = x4 - x3 + scrollOffsetX+ 'px';
+    let top = y3 + 'px';
+    let width = x4 - x3 + 'px';
     let height = y4 - y3 + 'px';
     return {left: left, top: top, width: width, height: height}
 }

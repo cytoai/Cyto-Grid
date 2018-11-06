@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import './Gallery.css';
 import Items from './Items.js'
 import Selectionbox from './Selectionbox.js'
@@ -90,7 +91,7 @@ class Gallery extends Component {
     }
 
     render() {
-        const { images, imagesPerRow, asyncImgLoadingFunc } = this.props
+        const { images, imagesPerRow, asyncImgLoadingFunc, decreaseWidth} = this.props
         return (
             <div className="container" onMouseDown={this.onmousedown} onMouseMove={this.onmousemove} onMouseUp={this.onmouseup}>
                 <CustomDragLayer draggedItem={this.state.currentlyDraggedItem}/>
@@ -99,6 +100,7 @@ class Gallery extends Component {
                     images={images}
                     imagesPerRow={imagesPerRow}
                     asyncImgLoadingFunc={asyncImgLoadingFunc}
+                    decreaseWidth={decreaseWidth}
                     selectItem={this.selectItem}
                     selectedItems={this.state.selected}
                     ondrag={this.setCrrentlyDraggedItem}
@@ -107,5 +109,19 @@ class Gallery extends Component {
         );
     }
 }
+
+
+Gallery.propTypes = {
+    images: PropTypes.array.isRequired,
+    imagesPerRow: PropTypes.number,
+    decreaseWidth: PropTypes.number,
+    asyncImgLoadingFunc: PropTypes.func,
+};
+
+Gallery.defaultProps = {
+    decreaseWidth: 0,
+    imagesPerRow: 10
+};
+
 
 export default DragDropContext(HTML5Backend)(Gallery);
