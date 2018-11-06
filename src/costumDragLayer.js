@@ -7,7 +7,7 @@ import "./costumDragLayer.css"
 const layerStyles = {
   position: 'fixed',
   pointerEvents: 'none',
-  zIndex: 100,
+  zIndex: 9999,
   left: 0,
   top: 0,
   width: '100%',
@@ -21,6 +21,9 @@ function getItemStyles(props) {
       display: 'none'
     };
   }
+  const x_Mouse = currentOffset.x - props.selectionboxCoordinates.x2
+  const y_Mouse = currentOffset.y - props.selectionboxCoordinates.y2
+
 
   const { x, y } = currentOffset;
   const transform = `translate(${x}px, ${y}px)`;
@@ -84,7 +87,7 @@ function collect(monitor) {
   return {
     item: monitor.getItem(),
     itemType: monitor.getItemType(),
-    currentOffset: monitor.getSourceClientOffset(),
+    currentOffset: monitor.getClientOffset(),
     isDragging: monitor.isDragging()
   };
 }

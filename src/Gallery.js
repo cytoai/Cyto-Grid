@@ -94,7 +94,7 @@ class Gallery extends Component {
         const { images, imagesPerRow, asyncImgLoadingFunc, decreaseWidth, rowHeight} = this.props
         return (
             <div className="container" onMouseDown={this.onmousedown} onMouseMove={this.onmousemove} onMouseUp={this.onmouseup}>
-                <CustomDragLayer draggedItem={this.state.currentlyDraggedItem}/>
+                <CustomDragLayer selectionboxCoordinates={this.state.selectionboxCoordinates} draggedItem={this.state.currentlyDraggedItem}/>
                 <Selectionbox selectionboxCoordinates={this.state.selectionboxCoordinates} visibility={this.state.selectionboxVisibility} />
                 <Items
                     images={images}

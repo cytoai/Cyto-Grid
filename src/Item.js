@@ -71,13 +71,14 @@ class Item extends Component {
             this.props.asyncImgLoadingFunc(id, this)
         }
     }     
+  
     render () {
         const { selectedItems, onmousedown, connectDragSource, containerStyle, item} = this.props
         const imgId = String(item.id)
         const imgSrc = item.src
         return connectDragSource(
             <div key={"li" + imgId} name={"selectableElement"}  type={"selectableElement"} imgid={imgId} onMouseDown={() => onmousedown(imgId)} className={selectedItems.includes(imgId) ? "selected" : "unselected"}>
-                <img key={"img" + imgId} type={"selectableElement"} alt="foo" src={this.state.src === null ? imgSrc : this.state.src} style={{objectPosition: "0 0", backgroundColor: "#F5F5F5", width: 0.8 * containerStyle.width, height: 0.8 * containerStyle.height, objectFit: "contain"}}/>
+                <img key={"img" + imgId} type={"selectableElement"} alt="foo" src={imgSrc} style={{objectPosition: "0 0", backgroundColor: "#F5F5F5", width: 0.8 * containerStyle.width, height: 0.8 * containerStyle.height, objectFit: "contain"}}/>
             </div>
         )
     }
