@@ -2,13 +2,11 @@ import React from 'react'
 import Item from './Item'
 import { Grid,  AutoSizer } from 'react-virtualized';
 
-
 const Items = (props) => {
     const onmousedown = (imgId) => {
         props.selectItem(imgId)
     }
 
-    let index = -1
     const picturesPerRow = props.imagesPerRow
     const length = props.images.length
     const quotient = Math.floor(length/picturesPerRow);
@@ -21,7 +19,13 @@ const Items = (props) => {
     const cellRenderer = function ({ columnIndex, key, rowIndex, style }) {
         // Cell renderer for virtualized list
         let newStyle ={...style}
-        index = index + 1
+        if( typeof cellRenderer.index == 'undefined' ) {
+            cellRenderer.index = -1;
+        }
+        if(cellRenderer.index === length-1){
+            cellRenderer.index = 0 
+        }
+        else cellRenderer.index++
         if(rowIndex === rowCount-1 && columnIndex > remainder-1){
             if(remainder !== 0){
                 return
@@ -31,7 +35,7 @@ const Items = (props) => {
             <div key={key} style={newStyle}>  
                 <Item
                     images={props.images}
-                    index={index}
+                    index={cellRenderer.index}
                     containerStyle={style}
                     key={key} 
                     selectedItems={props.selectedItems} 

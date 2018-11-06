@@ -9,7 +9,7 @@ class Selectionbox extends Component {
         this.state = {
             style: {
                 zIndex: 9000,
-                position: "absolute",
+                position: "fixed",
                 background: "#eaeaea",
                 opacity: 0.4,
                 border: "0.1em solid",
