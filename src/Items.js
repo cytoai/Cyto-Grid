@@ -18,8 +18,8 @@ const Items = (props) => {
 
     const cellRenderer = function ({ columnIndex, key, rowIndex, style }) {
         // Cell renderer for virtualized list
-        let newStyle ={...style}
-        if( typeof cellRenderer.index == 'undefined' ) {
+        let newStyle = {...style}
+        if( typeof cellRenderer.index === 'undefined' ) {
             cellRenderer.index = -1;
         }
         if(cellRenderer.index === length-1){
@@ -34,8 +34,7 @@ const Items = (props) => {
         return (
             <div key={key} style={newStyle}>  
                 <Item
-                    images={props.images}
-                    index={cellRenderer.index}
+                    item={props.images[cellRenderer.index]}
                     containerStyle={style}
                     key={key} 
                     selectedItems={props.selectedItems} 
